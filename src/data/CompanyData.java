@@ -1,6 +1,6 @@
 package data;
 
-public class CompanyData {
+public class CompanyData<T> {
 	private String _id;
 	private String comname;
 	private String address;
@@ -12,7 +12,7 @@ public class CompanyData {
 	private String registcapi;
 	private String scope;
 	private String uptime;
-	private String phonenumber;
+	private T phonenumber;
 	private String is_attention;
 	private String changerecord;
 	private String lawsuits;
@@ -92,12 +92,6 @@ public class CompanyData {
 	}
 	public void setUptime(String uptime) {
 		this.uptime = uptime;
-	}
-	public String getPhonenumber() {
-		return phonenumber;
-	}
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
 	}
 	public String getIs_attention() {
 		return is_attention;
@@ -182,6 +176,13 @@ public class CompanyData {
 	}
 	public void setReport(String report) {
 		this.report = report;
+	}
+	
+	public T getPhonenumber() {
+		return phonenumber;
+	}
+	public void setPhonenumber(T phonenumber) {
+		this.phonenumber = phonenumber;
 	}
 	@Override
 	public String toString() {
