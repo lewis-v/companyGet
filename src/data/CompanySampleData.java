@@ -1,6 +1,9 @@
 package data;
 
-public class CompanySampleData<T> {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class CompanySampleData<T,V,C> {
 	 private String regno;
 	 private String capital;
 	 private String shortstatus;
@@ -10,10 +13,14 @@ public class CompanySampleData<T> {
 	 private String startdate;
 	 private String address;
 	 private String province;
+	 private String registcapi;
      private T industry;
      private String opername;
      private String investnum;
      private String _id;
+     private V stockholders;
+     private C contactinfo;
+     private String logo;
 	public String getRegno() {
 		return regno;
 	}
@@ -92,12 +99,37 @@ public class CompanySampleData<T> {
 	public void set_id(String _id) {
 		this._id = _id;
 	}
+	public V getStockholders() {
+		return stockholders;
+	}
+	public void setStockholders(V stockholders) {
+		this.stockholders = stockholders;
+	}
+	public C getContactinfo() {
+		return contactinfo;
+	}
+	public void setContactinfo(C contactinfo) {
+		this.contactinfo = contactinfo;
+	}
+	public String getRegistcapi() {
+		return registcapi;
+	}
+	public void setRegistcapi(String registcapi) {
+		this.registcapi = registcapi;
+	}
+	public String getLogo() {
+		return logo;
+	}
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
 	@Override
 	public String toString() {
 		return "CompanySampleData [regno=" + regno + ", capital=" + capital + ", shortstatus=" + shortstatus + ", city="
 				+ city + ", comname=" + comname + ", addtime=" + addtime + ", startdate=" + startdate + ", address="
-				+ address + ", province=" + province + ", industry=" + industry + ", opername=" + opername
-				+ ", investnum=" + investnum + ", _id=" + _id + "]";
+				+ address + ", province=" + province + ", registcapi=" + registcapi + ", industry=" + industry
+				+ ", opername=" + opername + ", investnum=" + investnum + ", _id=" + _id + ", stockholders="
+				+ stockholders + ", contactinfo=" + contactinfo + ", logo=" + logo + "]";
 	}
 
      

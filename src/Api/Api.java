@@ -24,6 +24,7 @@ import data.CompanyPatentsData;
 import data.CompanyReportData;
 import data.CompanySampleData;
 import data.CompanyTrademarkData;
+import data.ContactinfoData;
 import data.EmployData;
 import data.IndustryData;
 import data.InvestData;
@@ -32,6 +33,7 @@ import data.TimeData;
 import data.UserData;
 import net.sf.json.JSONObject;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -67,15 +69,15 @@ public class Api {
 				.build();
 		System.out.println("Get:等待回复");
 		Response response = httpClient.newCall(request).execute();
-		System.out.println("GET:数据转换");
-		return response.body().string(); // 返回的是string 类型，json的mapper可以直接处理
+		String result = response.body().string();
+		System.out.println("GET:数据转换:"+result);
+		return result; // 返回的是string 类型，json的mapper可以直接处理
 	}
 
-	public String httpPost(String url,String uid, String json) throws IOException {
+	public String httpPost(String url,String uid, RequestBody requestBody) throws IOException {
 		long time = System.currentTimeMillis()/1000 - DIFFERENCE_TIME;
 		String token = MD5.md5(url+uid+time+"35c41a91").substring(8,16).toLowerCase();
 		OkHttpClient httpClient = new OkHttpClient();
-		RequestBody requestBody = RequestBody.create(JSON, json);
 		Request request = new Request.Builder()
 				.addHeader("token", token)
 				.addHeader("timestamp", time+"")
@@ -85,17 +87,17 @@ public class Api {
 				.url(HOST+url)
 				.post(requestBody)
 				.build();
-		System.out.println("POST:等待回复");
+		System.out.println("POST:等待回复:"+requestBody.toString());
 		Response response = httpClient.newCall(request).execute();
-		System.out.println("POST:数据转换");
-		return response.body().string();
+		String result = response.body().string();
+		System.out.println("POST:数据转换:"+result);
+		return result; // 返回的是string 类型，json的mapper可以直接处理
 	}
 	
-	public String httpPostByPage(String url,String uid, String page,String json) throws IOException {
+	public String httpPostByPage(String url,String uid, String page,RequestBody requestBody) throws IOException {
 		long time = System.currentTimeMillis()/1000 - DIFFERENCE_TIME;
 		String token = MD5.md5(url+uid+time+"35c41a91").substring(8,16).toLowerCase();
 		OkHttpClient httpClient = new OkHttpClient();
-		RequestBody requestBody = RequestBody.create(JSON, json);
 		Request request = new Request.Builder()
 				.addHeader("token", token)
 				.addHeader("timestamp", time+"")
@@ -109,8 +111,9 @@ public class Api {
 				.build();
 		System.out.println("POST:等待回复");
 		Response response = httpClient.newCall(request).execute();
-		System.out.println("POST:数据转换");
-		return response.body().string();
+		String result = response.body().string();
+		System.out.println("POST:数据转换:"+result);
+		return result; // 返回的是string 类型，json的mapper可以直接处理
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -143,12 +146,14 @@ public class Api {
 	 * @return
 	 * @throws IOException
 	 */
-	public BaseData<UserData> login() throws IOException{
-		JSONObject json = new JSONObject();
-		json.put("mobile", "15622106207");
-		json.put("password", "778899");
+	public BaseData<UserData> login() throws IOException{		
+		RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("mobile",  "15622106207")
+                .addFormDataPart("password", "778899")
+                .build();
 		ObjectMapper mapper = new ObjectMapper();
-		BaseData<UserData> data = mapper.readValue(httpPost("/v1/user/login","0",json.toString())
+		BaseData<UserData> data = mapper.readValue(httpPost("/v1/user/login","0",requestBody)
 				,new TypeReference<BaseData<UserData>>(){});
 		UID = data.getData().getUid();
 		return data;
@@ -161,10 +166,10 @@ public class Api {
 	 * @return
 	 * @throws IOException
 	 */
-	public BaseData<List<CompanySampleData<List<IndustryData>>>> getCompanySampleDataByIndustry(String page,String json) throws IOException{
+	public BaseData<List<CompanySampleData<List<IndustryData>,List<StockholderData>,ContactinfoData>>> getCompanySampleDataByIndustry(String page,RequestBody requestBody) throws IOException{
 		ObjectMapper mapper = new ObjectMapper();
-		BaseData<List<CompanySampleData<List<IndustryData>>>> data = mapper.readValue(httpPostByPage("/v1/search/region",UID,page,json)
-				,new TypeReference<BaseData<List<CompanySampleData<List<IndustryData>>>>>(){});
+		BaseData<List<CompanySampleData<List<IndustryData>,List<StockholderData>,ContactinfoData>>> data = mapper.readValue(httpPostByPage("/v1/search/region",UID,page,requestBody)
+				,new TypeReference<BaseData<List<CompanySampleData<List<IndustryData>,List<StockholderData>,ContactinfoData>>>>(){});
 		return data;
 	}
 	
@@ -307,7 +312,7 @@ public class Api {
 	 */
 	public BaseData<List<CompanyPatentsData>> getCompanyPatents(String id) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
-		BaseData<List<CompanyPatentsData>> data = mapper.readValue(httpGet("/v1/company/copyrights/"+id,UID)
+		BaseData<List<CompanyPatentsData>> data = mapper.readValue(httpGet("/v1/company/patents/"+id,UID)
 				,new TypeReference<BaseData<List<CompanyPatentsData>>>(){});
 		return data;
 	}

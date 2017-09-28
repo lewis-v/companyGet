@@ -1,10 +1,14 @@
 package data;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BaseData<T> {
 	private int code;
 	private String runTime;
 	private T data;
-	private int count;
+	private String count;
+	private String searchtime;
 	
 	
 	public int getCode() {
@@ -25,15 +29,23 @@ public class BaseData<T> {
 	public void setData(T data) {
 		this.data = data;
 	}
-	public int getCount() {
+	
+	public String getCount() {
 		return count;
 	}
-	public void setCount(int count) {
+	public void setCount(String count) {
 		this.count = count;
+	}
+	public String getSearchtime() {
+		return searchtime;
+	}
+	public void setSearchtime(String searchtime) {
+		this.searchtime = searchtime;
 	}
 	@Override
 	public String toString() {
-		return "BaseData [code=" + code + ", runTime=" + runTime + ", data=" + data + ", count=" + count + "]";
+		return "BaseData [code=" + code + ", runTime=" + runTime + ", data=" + data + ", count=" + count
+				+ ", searchtime=" + searchtime + "]";
 	}
 	
 	

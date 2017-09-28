@@ -1,5 +1,8 @@
 package data;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CompanyTrademarkData {
 	private String _id;
 	private String comguid;

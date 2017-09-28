@@ -1,9 +1,14 @@
 package data;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 法院通知
  * @author yw
  *
  */
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CompanyNotices {
 	private String _id;
 	private String comguid;

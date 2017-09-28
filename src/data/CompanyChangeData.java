@@ -1,5 +1,8 @@
 package data;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CompanyChangeData {
 	private String changedate;
 	private String projectname;

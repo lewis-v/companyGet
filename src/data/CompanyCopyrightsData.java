@@ -1,9 +1,14 @@
 package data;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 公司著作权
  * @author yw
  *
  */
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CompanyCopyrightsData {
 	 private String _id;
 	 private String comguid;
@@ -14,6 +19,7 @@ public class CompanyCopyrightsData {
 	 private String uptime;
 	 private String status;
 	 private String version;
+	 private String approvaldate;
 	 
 	public String get_id() {
 		return _id;
@@ -69,11 +75,17 @@ public class CompanyCopyrightsData {
 	public void setVersion(String version) {
 		this.version = version;
 	}
+	public String getApprovaldate() {
+		return approvaldate;
+	}
+	public void setApprovaldate(String approvaldate) {
+		this.approvaldate = approvaldate;
+	}
 	@Override
 	public String toString() {
 		return "CompanyCopyrightsData [_id=" + _id + ", comguid=" + comguid + ", name=" + name + ", typename="
 				+ typename + ", regno=" + regno + ", addtime=" + addtime + ", uptime=" + uptime + ", status=" + status
-				+ ", version=" + version + "]";
+				+ ", version=" + version + ", approvaldate=" + approvaldate + "]";
 	}
 	 
 	 

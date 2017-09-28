@@ -1,5 +1,8 @@
 package data;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class StockholderData {
 	 private String stockname;
 	 private String stocktype;

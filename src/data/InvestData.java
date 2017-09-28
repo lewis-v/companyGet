@@ -1,9 +1,13 @@
 package data;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 公司投资信息
  * @author yw
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class InvestData {
 	private String comname;
 	private String opername;
