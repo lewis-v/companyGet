@@ -130,7 +130,7 @@ public class SqlConnection {
 	 * @param id 获取对应id的地区编号
 	 * @return 返回area_id
 	 */
-	public String searchId(String id){
+	public String searchId(int id){
 		String sql = "select area_id from area where _id=" +id;
 		log = log + sql + "\n";
 		try {

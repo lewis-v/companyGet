@@ -58,7 +58,7 @@ public class Main {
 			//			Api.getInstance().login();
 			sql.sqlClose();
 			sql.TheSqlConnection();
-			for (int i = 1; (areaId = sql.searchId(i+""))!=null;i++){
+			for (int i = 2; (areaId = sql.searchId(i))!=null;i++){
 				System.out.println("search areaId = "+i+";"+areaId+"\n");
 				//根据地区筛选公司的请求体				
 				RequestBody requestBody = new MultipartBody.Builder()
