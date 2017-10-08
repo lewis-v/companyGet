@@ -58,7 +58,7 @@ public class Main {
 			//			Api.getInstance().login();
 			sql.sqlClose();
 			sql.TheSqlConnection();
-			for (int i = 2; (areaId = sql.searchId(i))!=null;i++){
+			for (int i = 3; (areaId = sql.searchId(i))!=null;i++){
 				System.out.println("search areaId = "+i+";"+areaId+"\n");
 				//根据地区筛选公司的请求体				
 				RequestBody requestBody = new MultipartBody.Builder()
@@ -89,7 +89,6 @@ public class Main {
 				for(CompanySampleData<List<IndustryData>,List<StockholderData>,ContactinfoData> company : companyList.getData()){
 					try{
 						System.out.println(companyList.getData().size() +" / "+num);
-						i++;
 						//公司信息
 						BaseData<CompanyData> companyData = Api.getInstance().getCompanyDetail(company.get_id());
 						sql.insert("('"+companyData.getData().get_id()+"','" +companyData.getData().getRegno()+"','" +companyData.getData().getRegistcapi()
